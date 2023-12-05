@@ -48,7 +48,7 @@ func processLine(line string) int {
 	return firstDigit*10 + lastDigit
 }
 
-func main() {
+func mainOld() {
 	inputBytes, error := os.ReadFile("input1.txt")
 	if error != nil {
 		fmt.Println("fail")
