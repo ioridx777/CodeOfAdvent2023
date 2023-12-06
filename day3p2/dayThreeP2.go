@@ -76,7 +76,7 @@ func updateHit(x int, y int, width int, height int, hitmapInput [][]int) {
 	hitCount++
 }
 
-func main() {
+func mainOld() {
 	inputBytes, error := os.ReadFile("inputDay3.txt")
 
 	if error != nil {
