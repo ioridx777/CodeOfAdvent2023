@@ -11,8 +11,8 @@ import (
 var rockMap [][]int
 
 func main() {
-	inputBytes, error := os.ReadFile("inputDay14.txt")
-	// inputBytes, error := os.ReadFile("sampleDay14.txt")
+	// inputBytes, error := os.ReadFile("inputDay14.txt")
+	inputBytes, error := os.ReadFile("sampleDay14.txt")
 
 	if error != nil {
 		fmt.Println("fail")
