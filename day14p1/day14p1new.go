@@ -11,12 +11,14 @@ import (
 var rockMap [][]int
 
 func getWeight(stackingAt int, stackingRock int) int {
-	return 0
+	startWeight := len(rockMap) - stackingAt
+	fmt.Println(`start weight `, startWeight)
+	return ((startWeight*2 - stackingRock + 1) * stackingRock) / 2
 }
 
 func main() {
-	// inputBytes, error := os.ReadFile("inputDay14.txt")
-	inputBytes, error := os.ReadFile("sampleDay14.txt")
+	inputBytes, error := os.ReadFile("inputDay14.txt")
+	// inputBytes, error := os.ReadFile("sampleDay14.txt")
 
 	if error != nil {
 		fmt.Println("fail")
@@ -50,35 +52,37 @@ func main() {
 		rockMap = append(rockMap, lineOfValue)
 	}
 	// sum := 0
-	// for i := 0; i < width; i++ {
 	sum := 0
-	for i := 0; i < 2 && i < width; i++ {
+	for i := 0; i < width; i++ {
+		// for i := 2; i < 3 && i < width; i++ {
 		fmt.Println(`Rock Col `, i)
 		for j := 0; j < height; j++ {
 			fmt.Print(rockMap[j][i])
 		}
 		fmt.Println()
-		for j := 0; j < height; j++ {
-			if rockMap[j][i] == 1 || j == 0 {
-				fmt.Println(`hitting at `, j)
-				if j == 0 || rockMap[j][i] == 1 {
-					//this is a counter
-					stackingAt := j
-					stackingRock := 0
-					j++
-					for j < height && rockMap[j][i] != 2 {
-						fmt.Println(`checking at `, j)
-						if rockMap[j][i] == 1 {
-							stackingRock++
-							break
-						}
-						j++
-					}
-					pileWeight := getWeight(stackingAt, stackingRock)
-					fmt.Println(`stacking at `, stackingAt, ` : `, stackingRock)
-					sum += pileWeight
+		for j := -1; j < height; {
+			fmt.Println(`starting j `, j)
+			fmt.Println(`current height `, height)
+			fmt.Print(i, `th col rolling start at `, j, ` | `)
+			//this is a counter
+			stackingAt := j
+			stackingRock := 0
+			j++
+			for j < height && rockMap[j][i] != 1 {
+				if rockMap[j][i] == 2 {
+					fmt.Print(" [", j, "]")
+					stackingRock++
+				} else {
+					fmt.Print(" ", j)
 				}
+				j++
 			}
+			fmt.Println()
+			pileWeight := getWeight(stackingAt+1, stackingRock)
+			fmt.Println(`pile at `, stackingAt, ` : `, stackingRock)
+			fmt.Println(`with weight `, pileWeight)
+			sum += pileWeight
+
 		}
 	}
 
